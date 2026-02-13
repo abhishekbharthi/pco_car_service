@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h5 class="mb-3">My Jobs</h5>
+
+<form method="get" class="row g-2 mb-3">
+
+    <div class="col-4">
+        <input
+            type="date"
+            name="date"
+            class="form-control"
+            value="{{ selected_date }}"
+        >
+    </div>
+
+    <div class="col-5">
+        <select name="status" class="form-select">
+            <option value="">New + Hold</option>
+            <option value="NEW" {% if selected_status == "NEW" %}selected{% endif %}>New</option>
+            <option value="IN_PROCESS" {% if selected_status == "IN_PROCESS" %}selected{% endif %}>In Process</option>
+            <option value="HOLD" {% if selected_status == "HOLD" %}selected{% endif %}>Hold</option>
+            <option value="COMPLETED" {% if selected_status == "COMPLETED" %}selected{% endif %}>Completed</option>
+        </select>
+    </div>
+
+    <div class="col-3">
+        <button class="btn btn-primary w-100">Filter</button>
+    </div>
+
+</form>
+
+
+{% for job in jobs %}
+<div class="card mb-2 shadow-sm">
+    <div class="card-body py-2 px-3">
+
+        <!-- Header -->
+        <div class="d-flex justify-content-between align-items-center">
+
+            <div>
+                <strong>{{ job.appointment }}</strong>
+                <span class="text-muted small ms-1">
+                    {{ job.job_type }}
+                </span>
+                <!-- Date -->
+                <span class="small text-muted">
+                  -  {{ job.scheduled_datetime|date:"d M Y H:i" }}
+                </span>
+            </div>
+
+            <span class="badge
+                {% if job.status == 'NEW' %}bg-primary
+                {% elif job.status == 'IN_PROCESS' %}bg-warning
+                {% elif job.status == 'HOLD' %}bg-secondary
+                {% else %}bg-success{% endif %}">
+                {{ job.status }}
+            </span>
+
+        </div>
+
+        
+
+        <!-- Admin Comment -->
+        {% if job.admin_comment %}
+        <div class="small mt-1">
+            {{ job.admin_comment }}
+        </div>
+        {% endif %}
+
+        <!-- Mechanic Remark -->
+        {% if job.mechanic_remark %}
+        <div class="bg-light small p-1 mt-1">
+            {{ job.mechanic_remark }}<br/>
+        </div>
+        {% endif %}
+
+        <!-- Actions -->
+        <div class="d-flex gap-2 mt-2">
+
+            <a href="{% url 'mechanic_checklist' job.id %}"
+               class="btn btn-sm btn-primary flex-fill">
+                Checklist
+            </a>
+
+            <a href="/jobs/mechanic/{{ job.id }}/"
+               class="btn btn-sm btn-outline-primary flex-fill">
+                Update
+            </a>
+
+        </div>
+
+    </div>
+</div>
+{% empty %}
+<p class="text-muted">No jobs assigned.</p>
+{% endfor %}
+
+{% endblock %}

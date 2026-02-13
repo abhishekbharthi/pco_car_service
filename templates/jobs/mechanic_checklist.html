@@ -1,0 +1,247 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container pb-5">
+
+<h5>{{ job.job_type }} - {{ job.appointment }}</h5>
+<small>{{ job.scheduled_datetime|date:"d M Y H:i"  }}</small>
+
+<form method="post">
+{% csrf_token %}
+
+<!-- SERVICE -->
+<div class="card mb-3">
+
+    <div class="card-header" data-bs-toggle="collapse" data-bs-target="#service">SERVICE</div>
+
+    <div id="service" class="collapse show p-3">
+
+        <label class="form-check">
+            <input type="checkbox"  class="me-2"  name="engine_oil_change" {% if inspection.engine_oil_change %}checked{% endif %}>Engine Oil Change
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="oil_filter_change" {% if inspection.oil_filter_change %}checked{% endif %}>Oil Filter Change
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="cabin_filter" {% if inspection.cabin_filter %}checked{% endif %}>Cabin Filter
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="air_filter" {% if inspection.air_filter %}checked{% endif %}>Air Filter
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="spark_plugs" {% if inspection.spark_plugs %}checked{% endif %}>Spark Plugs
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="engine_coolant" {% if inspection.engine_coolant %}checked{% endif %}>Engine Coolant
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="wipers" {% if inspection.wipers %}checked{% endif %}>Wipers
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="battery" {% if inspection.battery %}checked{% endif %}>Battery
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="hybrid_filter" {% if inspection.hybrid_filter %}checked{% endif %}>Hybrid Filter
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="antifreeze" {% if inspection.antifreeze %}checked{% endif %}>Antifreeze
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="transmission_oil" {% if inspection.transmission_oil %}checked{% endif %}>Transmission Oil
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="washer_fluid" {% if inspection.washer_fluid %}checked{% endif %}>Washer Fluid
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="key_bettery" {% if inspection.key_bettery %}checked{% endif %}>Key Battery
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- BRAKES -->
+<div class="card mb-3">
+    
+    <div class="card-header" data-bs-toggle="collapse" data-bs-target="#brakes">BRAKES</div>
+
+    <div id="brakes" class="collapse show p-3">
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="brake_pads_front" {% if inspection.brake_pads_front %}checked{% endif %}>Front Pads
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="brake_pads_rear" {% if inspection.brake_pads_front %}checked{% endif %}>Rear Pads
+        </label>
+
+    </div>
+
+</div>
+
+
+<!-- TYRES -->
+<div class="card mb-3">
+
+    <div class="card-header" data-bs-toggle="collapse" data-bs-target="#tyres">TYRES</div>
+
+    <div id="tyres" class="collapse show p-3">
+        <div class="row">
+            <div class="col-6">Front Right
+                <input name="tyre_front_right" class="form-control" value="{{ inspection.tyre_front_right|default_if_none:'' }}">
+            </div>
+
+            <div class="col-6">Front Left
+                <input name="tyre_front_left" class="form-control" value="{{ inspection.tyre_front_left|default_if_none:'' }}">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">Rear Right
+                <input name="tyre_rear_right" class="form-control" value="{{ inspection.tyre_rear_right|default_if_none:'' }}">
+            </div>
+        
+            <div class="col-6">Rear Left
+                <input name="tyre_rear_left" class="form-control" value="{{ inspection.tyre_rear_left|default_if_none:'' }}">
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- Light Bulbs -->
+<div class="card mb-3">
+
+    <div class="card-header" data-bs-toggle="collapse" data-bs-target="#lightbulbs">Light Bulbs</div>
+
+    <div id="lightbulbs" class="collapse show p-3">
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="side_bulbs" {% if inspection.side_bulbs %}checked{% endif %}>Side bulbs
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="h11_bulbs_left" {% if inspection.h11_bulbs_left %}checked{% endif %}>H11 Bulb Left
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="h11_bulbs_right" {% if inspection.h11_bulbs_left %}checked{% endif %}>H11 Bulb Right
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="hid_bulb_left" {% if inspection.hid_bulb_left %}checked{% endif %}>HID Bulb Left
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="hid_bulb_right" {% if inspection.hid_bulb_right %}checked{% endif %}>HID Bulb Right
+        </label>
+
+    </div> 
+</div>
+
+
+
+<!-- Others -->
+<div class="card mb-3">
+
+    <div class="card-header" data-bs-toggle="collapse" data-bs-target="#others">Others</div>
+
+    <div id="others" class="collapse show p-3">
+    
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="break_disc_fr" {% if inspection.break_disc_fr %}checked{% endif %}>Break Disc Front
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="break_disc_re" {% if inspection.break_disc_re %}checked{% endif %}>Break Disc Rear
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="shock_absorber_fr" {% if inspection.shock_absorber_fr %}checked{% endif %}>Shock Absorber Front
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="shock_absorber_re" {% if inspection.shock_absorber_re %}checked{% endif %}>Shock Absorber Rear
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="linkage" {% if inspection.linkage %}checked{% endif %}>Linkage
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox"  class="me-2"  name="ball_joint" {% if inspection.ball_joint %}checked{% endif %}>Ball Joint
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2"  name="seat_cover" {% if inspection.seat_cover %}checked{% endif %}>Seat Cover
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2" name="accident_camera" {% if inspection.accident_camera %}checked{% endif %}>Accident Camera
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2" name="tracking_system" {% if inspection.tracking_system %}checked{% endif %}>Tracking System
+        </label>
+
+        <label class="form-check">
+            <input type="checkbox" class="me-2" name="reverse_camera" {% if inspection.reverse_camera %}checked{% endif %}>Reverse Camera
+        </label> 
+        
+        
+        
+    </div>
+
+</div>
+
+<!-- COMMENTS -->
+<div class="card mb-3 p-3">
+
+    <div class="col-12 mb-3">Labor(Time)
+        <input type="text" name="labour" value="{{ inspection.labour|default_if_none:'' }}">
+    </div> 
+   
+    <div class="col-12">
+        <textarea name="comments" class="form-control" placeholder="Add notes...">{{ job.inspection.comments|default_if_none:'' }}</textarea>
+    </div>    
+</div>
+
+
+<!-- STICKY ACTION BAR -->
+<div class="fixed-bottom bg-white border-top p-2">
+
+<div class="d-flex gap-2">
+
+<button name="action" value="save"
+class="btn btn-primary flex-fill">
+Save
+</button>
+
+<button name="action"
+value="complete"
+onclick="return confirm('Complete this job?')">
+Complete Job
+</button>
+
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+{% endblock %}

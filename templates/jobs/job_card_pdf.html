@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <style>
+
+        body {
+            font-family: Arial;
+            font-size: 12px;
+        }
+        
+        .header {
+            border-bottom: 2px solid black;
+            margin-bottom: 10px;
+        }
+        
+        .two-column {
+        
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        
+        }
+        
+        .section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            background: #eee;
+            font-weight: bold;
+            padding: 5px;
+        }
+        
+        .item {
+            display: flex;
+            justify-content: space-between;
+            margin: 3px 0;
+        }
+
+        .tyre-grid {
+
+        display: grid;
+
+        /* creates left + right columns */
+        grid-template-columns: auto 1fr auto 1fr;
+
+        column-gap: 15px;
+        row-gap: 4px;
+
+        }
+        .check {
+            font-weight: bold;
+            color: green;
+            font-size: 14px;
+        }
+
+        .uncheck {
+            color: #ccc;
+        }
+        </style>
+
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <h1>{{job.job_type}} - {{ job.appointment }}</h1>
+    
+    <h3>
+    Date: {{ job.scheduled_datetime|date:"d M Y H:i" }}
+    &nbsp;&nbsp;&nbsp;
+    Technician: 
+    {% if job.inspection.checked_by %}
+        {{ job.inspection.checked_by.get_full_name|default:job.inspection.checked_by.username }}
+    {% else %}
+        -
+    {% endif %}
+    </h3>
+    
+</div>
+
+<!-- TWO COLUMN LAYOUT -->
+
+<div class="two-column">
+<!-- LEFT COLUMN -->
+
+<div>
+
+    <div class="section">
+    
+        <div class="section-title">SERVICE</div>
+    
+        <div class="item">Engine Oil <span>{% if job.inspection.engine_oil_change %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Oil Filter<span>{% if job.inspection.oil_filter_change %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Cabin Filter<span>{% if job.inspection.cabin_filter %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Air Filter<span>{% if job.inspection.air_filter %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Spark Plugs<span>{% if job.inspection.spark_plugs %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        
+        <div class="item">Engine Coolant<span>{% if job.inspection.engine_coolant %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Wipers<span>{% if job.inspection.wipers %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Battery<span>{% if job.inspection.battery %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Hybrid Filter<span>{% if job.inspection.hybrid_filter %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+
+        <div class="item">Antifreeze<span>{% if job.inspection.antifreeze %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Transmission Oil<span>{% if job.inspection.transmission_oil %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Washer Fluid<span>{% if job.inspection.washer_fluid %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Key Bettery<span> {% if job.inspection.key_bettery %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+    
+    </div>
+
+    <div class="section">
+
+        <div class="section-title">BREAKES</div>
+    
+        <div class="item">Front Pads<span>{% if job.inspection.brake_pads_front %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Rear Pads<span> {% if job.inspection.brake_pads_rear %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+    
+    </div>
+    
+    <div class="section">
+
+            <div class="section-title">TYRES</div>
+
+            <div class="tyre-grid">
+
+                <div>FR:</div>
+                <div>{{ job.inspection.tyre_front_right }}</div>
+        
+                <div>RR:</div>
+                <div>{{ job.inspection.tyre_rear_right }}</div>
+        
+                <div>FL:</div>
+                <div>{{ job.inspection.tyre_front_left }}</div>
+        
+                <div>RL:</div>
+                <div>{{ job.inspection.tyre_rear_left }}</div>
+        
+            </div>
+     
+    </div>
+
+    <div class="section">
+
+        <div class="section-title">LIGHT BULBS</div>
+    
+        <div class="item">Side Bulbs<span>{% if job.inspection.side_bulbs %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">H11 Bulb Left<span>{% if job.inspection.h11_bulbs_left %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">H11 Bulb Right<span>{% if job.inspection.h11_bulbs_right %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">HID Bulb Left<span>{% if job.inspection.hid_bulb_left %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">HID Bulb Right<span>{% if job.inspection.hid_bulb_right %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+    
+    </div>
+    
+</div>
+ 
+<!-- RIGHT COLUMN -->
+
+<div>
+
+    <div class="section">
+    
+        <div class="section-title">OTHER</div>
+
+        <div class="item">Break Disc Front<span>{% if job.inspection.break_disc_fr %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Break Disc Rear<span>{% if job.inspection.break_disc_re %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Shock Absorber Front<span>{% if job.inspection.shock_absorber_fr %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Shock Absorber Rear<span>{% if job.inspection.shock_absorber_re %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Linkage<span>{% if job.inspection.linkage %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Ball Joint<span>{% if job.inspection.ball_joint %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Seat Cover<span>{% if job.inspection.seat_cover %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Navigation<span>{% if job.inspection.navigation %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Accident Camera<span>{% if job.inspection.accident_camera %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Tracking System<span>{% if job.inspection.tracking_system %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Reverse Camera<span>{% if job.inspection.reverse_camera %}<span>......................................................</span><span class="check">✔</span>{% endif %}</span></div>
+        <div class="item">Labour(hrs.)<span>......................................................</span><span>{{ job.inspection.labour }}</span></div>
+
+
+    </div>
+
+    <div class="section">
+
+        <h3>COMMENTS / OTHERS</h3>
+        
+            <p>{{ job.inspection.comments }}</p>
+        
+        </div>
+</div>
+    
+</body>
+</html>

@@ -1,0 +1,87 @@
+{% extends "admin/base.html" %}
+
+{% block branding %}
+<h1 id="site-name">
+    Evoto Car Service Administration
+</h1>
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+
+<script>
+
+console.log("Admin notification system loaded");
+
+
+// ------------------------------------------------
+// Request browser notification permission
+// ------------------------------------------------
+
+if ("Notification" in window) {
+
+    if (Notification.permission !== "granted") {
+        Notification.requestPermission();
+    }
+
+}
+
+
+// ------------------------------------------------
+// Prevent duplicate notifications
+// ------------------------------------------------
+
+if (!window.shownNotifications) {
+    window.shownNotifications = [];
+}
+
+
+// ------------------------------------------------
+// Check notifications from backend
+// ------------------------------------------------
+
+async function checkNotifications() {
+
+    try {
+
+        const response = await fetch("/jobs/notifications/");
+
+        const data = await response.json();
+
+        console.log("Notifications data:", data);
+
+        data.notifications.forEach(n => {
+
+            // prevent duplicate popup
+            if (window.shownNotifications.includes(n.id)) {
+                return;
+            }
+
+            window.shownNotifications.push(n.id);
+
+            // show desktop notification
+            new Notification("Job Update", {
+                body: n.message,
+                icon: "/static/icon.png" // optional icon
+            });
+
+        });
+
+    } catch (error) {
+
+        console.error("Notification error:", error);
+
+    }
+
+}
+
+
+// ------------------------------------------------
+// Poll every 5 seconds
+// ------------------------------------------------
+
+setInterval(checkNotifications, 5000);
+
+</script>
+
+{% endblock %}

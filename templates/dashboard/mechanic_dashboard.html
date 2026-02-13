@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h4 class="mb-3">Welcome, {{ request.user.username }}</h4>
+    <p class="text-muted">Mechanic Dashboard</p>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow-sm mb-3">
+                <div class="card-body">
+                    <h5 class="card-title">Assigned Jobs</h5>
+                    <div class="list-group">
+                        <a href="/jobs/mechanic/" class="list-group-item list-group-item-action">
+                            View Assigned Jobs
+                        </a>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

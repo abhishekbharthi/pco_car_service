@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h5 class="mb-3">Update Job</h5>
+
+<form method="post">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select">
+            <option value="NEW" {% if job.status == "NEW" %}selected{% endif %}>New</option>
+            <option value="IN_PROCESS" {% if job.status == "IN_PROCESS" %}selected{% endif %}>In Process</option>
+            <option value="COMPLETED" {% if job.status == "COMPLETED" %}selected{% endif %}>Completed</option>
+            <option value="HOLD" {% if job.status == "HOLD" %}selected{% endif %}>Hold</option>
+        </select>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">Mechanic Remark</label>
+        <textarea name="mechanic_remark" class="form-control" rows="3">{{ job.mechanic_remark }}</textarea>
+    </div>
+
+    <button class="btn btn-success w-100">Save</button>
+</form>
+
+{% endblock %}
