@@ -85,9 +85,9 @@ WSGI_APPLICATION = 'carservice.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'pco_service_db',
-        'USER': 'root',
-        'PASSWORD': '',
+        'NAME': 'abhishekbharthi_pco_service_db',
+        'USER': 'abhishekbharthi_carservice',
+        'PASSWORD': '$777KdtSSSUp23N',
         'HOST': 'localhost',
         'PORT': '3306',
         'OPTIONS': {
