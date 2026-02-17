@@ -86,7 +86,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'abhishekbharthi_pco_service_db',
-        'USER': 'abhishekbharthi_carservice',
+        'USER': 'root',
         'PASSWORD': '$777KdtSSSUp23N',
         'HOST': 'localhost',
         'PORT': '3306',
